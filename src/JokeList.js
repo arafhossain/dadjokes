@@ -14,7 +14,6 @@ class JokeList extends Component {
       isLoading: false
     };
     this.currentJokes = new Set(this.state.jokes.map(text => (text.joke)));
-    console.log(this.currentJokes);
     this.handleClick = this.handleClick.bind(this);
   }
   componentDidMount() {
@@ -66,6 +65,7 @@ class JokeList extends Component {
         </div>
       );
     }
+    let sortedJokes = this.state.jokes.sort((a,b) => b.votes - a.votes);
     return (
       <div className="JokeList">
         <div className="JokeList-sidebar">
@@ -77,11 +77,11 @@ class JokeList extends Component {
             alt="laugh emoji"
           />
           <button className="Jokelist-getJoke" onClick={this.handleClick}>
-            Get more Jokes
+            More Jokes
           </button>
         </div>
         <div className="JokeList-jokes">
-          {this.state.jokes.map(jokeInfo => (
+          {sortedJokes.map(jokeInfo => (
             <Joke
               votes={jokeInfo.votes}
               text={jokeInfo.joke}
