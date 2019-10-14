@@ -9,9 +9,17 @@ class JokeList extends Component {
   };
   constructor(props) {
     super(props);
-    this.state = { jokes: [] };
+    this.state = {
+      jokes: JSON.parse(window.localStorage.getItem("jokes") || "[]")
+    };
   }
-  async componentDidMount() {
+  componentDidMount() {
+    if (this.state.jokes.length === 0) {
+      this.getJokes();
+    }
+  }
+
+  async getJokes() {
     let newJokeArray = [];
     for (let i = 0; i < this.props.numJokesToGet; i++) {
       let newJoke = await axios.get("https://icanhazdadjoke.com/", {
@@ -22,7 +30,9 @@ class JokeList extends Component {
     this.setState({
       jokes: newJokeArray
     });
+    window.localStorage.setItem("jokes", JSON.stringify(newJokeArray));
   }
+
   handleVote(id, change) {
     this.setState(curState => ({
       jokes: curState.jokes.map(joke =>
