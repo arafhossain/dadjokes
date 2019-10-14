@@ -13,6 +13,8 @@ class JokeList extends Component {
       jokes: JSON.parse(window.localStorage.getItem("jokes") || "[]"),
       isLoading: false
     };
+    this.currentJokes = new Set(this.state.jokes.map(text => (text.joke)));
+    console.log(this.currentJokes);
     this.handleClick = this.handleClick.bind(this);
   }
   componentDidMount() {
@@ -23,11 +25,13 @@ class JokeList extends Component {
 
   async getJokes() {
     let newJokeArray = [];
-    for (let i = 0; i < this.props.numJokesToGet; i++) {
+    while (newJokeArray.length < this.props.numJokesToGet){
       let newJoke = await axios.get("https://icanhazdadjoke.com/", {
         headers: { Accept: "application/json" }
       });
-      newJokeArray.push({ joke: newJoke.data.joke, votes: 0, id: uuid() });
+      if(!this.currentJokes.has(newJoke.data.joke)){
+        newJokeArray.push({ joke: newJoke.data.joke, votes: 0, id: uuid() });
+      }
     }
     this.setState(
       curState => ({
