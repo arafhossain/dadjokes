@@ -1,3 +1,8 @@
+# Dadjokes App
+This project is a React Application that displays a list of cheesy jokes retrieved from the 'Icanhazdadjoke' API (https://icanhazdadjoke.com). It displays ten random jokes from the API which are stored locally. Users have the option to 'upvote' or 'downvote' jokes which will change the displayed jokes based on ranking. The emojis will also change depending on the number of upvotes. Users also have the option to grab an additional ten jokes from the API from the 'More Jokes' button which appends to the current list.
+
+Currently hosted on gh pages: https://arafhossain.github.io/dadjokes
+- - -
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
